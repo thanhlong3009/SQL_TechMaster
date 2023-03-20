@@ -1,0 +1,111 @@
+1.
+SELECT TBLGiangVien.Magv,TBLGiangVien.Hotengv,TBLKhoa.Tenkhoa
+FROM TBLGiangVien JOIN TBLKhoa ON TBLKhoa.Makhoa = TBLGiangVien.Makhoa
+
+2.
+SELECT TBLGiangVien.Magv,TBLGiangVien.Hotengv,TBLKhoa.Tenkhoa
+FROM TBLGiangVien JOIN TBLKhoa ON TBLKhoa.Makhoa = TBLGiangVien.Makhoa WHERE TBLKhoa.Tenkhoa LIKE "%DIA LY va QLTN%"
+
+3.
+SELECT COUNT(TBLSinhVien.Masv)
+FROM TBLSinhVien JOIN TBLKhoa ON TBLSinhVien.Makhoa = TBLKhoa.Makhoa
+WHERE TBLKhoa.Tenkhoa LIKE "%CONG NGHE SINH HOC%"
+
+4.
+SELECT TBLSinhVien.Masv,TBLSinhVien.Hotensv,TBLSinhVien.Namsinh
+FROM TBLSinhVien JOIN TBLKhoa ON TBLSinhVien.Makhoa = TBLKhoa.Makhoa
+WHERE TBLKhoa.Tenkhoa LIKE "%Toan%"
+
+5.
+SELECT COUNT(TBLGiangVien.Magv)
+FROM TBLGiangVien JOIN TBLKhoa ON TBLGiangVien.Makhoa = TBLKhoa.Makhoa
+WHERE TBLKhoa.Tenkhoa LIKE "%CONG NGHE SINH HOC%"
+
+
+6.
+SELECT * FROM TBLSinhVien
+WHERE TBLSinhVien.Masv
+NOT IN
+(
+    SELECT TBLHuongDan.Masv
+    FROM TBLHuongDan
+)
+
+7.
+SELECT TBLKhoa.Makhoa, TBLKhoa.Tenkhoa, COUNT(TBLGiangVien.Magv) AS `SoGiangVien`
+FROM TBLKhoa JOIN TBLGiangVien ON TBLGiangVien.Makhoa = TBLKhoa.Makhoa
+GROUP BY TBLGiangVien.Makhoa
+
+8.
+SELECT TBLKhoa.Dienthoai
+FROM TBLKhoa JOIN TBLSinhVien ON TBLSinhVien.Makhoa = TBLKhoa.Makhoa
+WHERE TBLSinhVien.Hotensv LIKE "%Le Van Son%"
+
+9.
+SELECT TBLDeTai.Madt, TBLDeTai.Tendt
+FROM TBLHuongDan
+JOIN TBLGiangVien ON TBLHuongDan.Magv = TBLGiangVien.Magv
+JOIN TBLDeTai ON TBLHuongDan.Madt = TBLDeTai.Madt
+WHERE TBLGiangVien.Hotengv LIKE "%Tran Son%"
+
+10.
+SELECT TBLDeTai.Tendt
+FROM TBLDeTai
+WHERE TBLDeTai.Madt
+NOT IN
+(
+    SELECT TBLHuongDan.Madt
+    FROM TBLHuongDan
+)
+
+11.
+SELECT TBLGiangVien.Magv, TBLGiangVien.Hotengv,TBLKhoa.Tenkhoa
+FROM TBLGiangVien
+JOIN TBLKhoa ON TBLGiangVien.Makhoa = TBLKhoa.Makhoa
+JOIN TBLHuongDan ON TBLGiangVien.Magv = TBLHuongDan.Magv
+GROUP BY TBLHuongDan.Magv
+HAVING COUNT(TBLHuongDan.Masv) >= 3
+
+12.
+SELECT TBLDeTai.Madt, TBLDeTai.Tendt
+FROM TBLDeTai
+WHERE Kinhphi =
+(
+    SELECT MAX(Kinhphi) FROM TBLDeTai
+)
+
+13.
+SELECT TBLDeTai.Madt, TBLDeTai.Tendt
+FROM TBLDeTai JOIN TBLHuongDan ON TBLDeTai.Madt = TBLHuongDan.Madt
+GROUP BY TBLHuongDan.Madt
+HAVING COUNT(TBLHuongDan.Masv) > 2
+
+14.
+SELECT TBLSinhVien.Masv, TBLSinhVien.Hotensv, TBLHuongDan.KetQua
+FROM TBLSinhVien
+JOIN TBLKhoa ON TBLSinhVien.Makhoa = TBLKhoa.Makhoa
+JOIN TBLHuongDan ON TBLSinhVien.Masv = TBLHuongDan.Masv
+WHERE TBLKhoa.Tenkhoa LIKE "%Dia ly va QLTN%"
+
+15.
+SELECT TBLKhoa.Tenkhoa, COUNT(TBLSinhVien.Masv) as `SoLuongSinhVien`
+FROM TBLSinhVien JOIN TBLKhoa ON TBLSinhVien.Makhoa = TBLKhoa.Makhoa
+GROUP BY TBLSinhVien.Makhoa
+
+16.
+SELECT TBLSinhVien.*
+FROM TBLHuongDan
+JOIN TBLDeTai ON TBLHuongDan.Madt = TBLDeTai.Madt
+JOIN TBLSinhVien ON TBLHuongDan.Masv = TBLSinhVien.Masv
+WHERE TBLSinhVien.Quequan = TBLDeTai.Noithuctap
+
+17.
+SELECT TBLSinhVien.*
+FROM TBLSinhVien JOIN TBLHuongDan ON TBLSinhVien.Masv = TBLHuongDan.Masv
+WHERE TBLHuongDan.KetQua IS NULL
+
+18.
+SELECT TBLSinhVien.Masv,TBLSinhVien.Hotensv
+FROM TBLSinhVien JOIN TBLHuongDan ON TBLSinhVien.Masv = TBLHuongDan.Masv
+WHERE TBLHuongDan.KetQua = 0
+
