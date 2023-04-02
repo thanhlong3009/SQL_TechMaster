@@ -1,0 +1,42 @@
+﻿Trần Thành Long : TechMasterDB
+Các bảng trong DB: 
+* users:
+   * tên đầy đủ(fullname), ảnh đại diện(avatar), giới thiệu về bản thân(introduce), số điện thoại, email,mật khẩu.
+   * role: chia quyền cho user, có thể là giáo viên, admin, học sinh,..
+   * status_id : trạng thái của tài khoản đó, đang hoạt động, tạm ngừng hoạt động,....
+* courses: 
+   * thông tin về khóa học gồm tên, giới thiệu về khóa học, thời lượng khóa học(duration), thời khóa biểu(schedule), giá khóa học 
+* frequently_questions:
+   * Các câu hỏi thường gặp về khóa học
+* classes:
+   * Mỗi khóa học sẽ có nhiều lớp được mở ra 
+   * bảng gồm tên lớp học, mã khoá học, người quản lý lớp, địa chỉ, ngày bắt đầu, kết thúc và trạng thái lớp học  
+* users_classes: 
+   * là bảng phụ của users và classes, đưa ra thông tin học sinh nào thuộc lớp nào
+   * status_id: trạng thái của học sinh đó có thể sắp bắt đầu lớp học, hoặc đã hoàn thành hoặc đang diễn ra 
+   * Vì vậy nên quan hệ lớp và học sinh sẽ là nhiều nhiều
+* subjects: 
+   * mỗi một lớp cũng như 1 khóa học sẽ có nhiều môn học khác nhau 
+   * bảng subjects gồm id, tên môn học, mã lớp, mã giáo viên, ngày bắt đầu, kết thúc, mô tả môn học và  lộ trình(route)
+* lessons: 
+   * Một môn học sẽ có nhiều bài học, mỗi bài học sẽ tương ứng với 1 buổi học 
+   * Bảng lessons gồm id, id môn học, tiêu đề ,nội dung bài giảng, bài tập về nhà 
+* students_lessons: 
+   * Bảng lưu thông tin của mỗi học sinh mỗi buổi học 
+   * Gồm mã học sinh, mã lesson, có tham gia học ko(attendance), trạng thái bài tập về nhà, điểm và nhận xét của giáo viên 
+* vouchers: 
+   * Các khuyến mãi khóa học 
+   * Gồm mã, nội dung, ngày bắt đầu, kết thúc, trạng thái 
+* courses_vouchers:
+   * mỗi khóa học sẽ có nhiều ưu đãi, 1 ưu đãi áp dụng cho nhiều khóa học 
+* paments: 
+   * Chi tiết hóa đơn học phí của học sinh 
+   * Gồm mã học sinh, tên khóa học, voucher sử dụng nếu có, số tiền đóng, trạng thái thanh toán
+* posts : 
+   * Các bài đăng, blogs
+   * Gồm tác giả, tiêu đề, nội dung và trạng thái bài post
+* topics:
+   * Các chủ đề trong bài post
+* comments:
+   * bình luận của các users trong bài post
+   * gồm user_id, post_id, parent_id để kiểm tra nó có phải reply comment không và content
